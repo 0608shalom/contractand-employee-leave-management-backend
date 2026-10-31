@@ -144,4 +144,20 @@ if (alreadyExists) {
 
     return "Leave request deleted successfully";
     }
+    public List<Object[]> getLeaveRequestCountsByStatus() {
+    return leaveRequestRepository.countLeaveRequestsByStatus();
+}
+    public String cancelLeaveRequestsByHrOfficerAndDate(
+        UUID hrOfficerId, LocalDate date){
+
+            int count = leaveRequestRepository
+            .cancelLeaveRequestsByHrOfficerAndDate(
+                hrOfficerId,
+            date,LeaveStatus.REJECTED,
+        LeaveStatus.CLOSED
+        
+    );
+
+    return count + "leave requests cancelled";
+    }
 }

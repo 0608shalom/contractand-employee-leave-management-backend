@@ -56,7 +56,21 @@ public List<LeaveRequest> getLeaveRequestsBetweenDates(
 
     return leaveRequestService.getLeaveRequestsBetweenDates(start, end);
 }
+@GetMapping("/stats/by-status")
+public List<Object[]> getLeaveRequestCountsByStatus() {
+    return leaveRequestService.getLeaveRequestCountsByStatus();
+}
+@PatchMapping("/cancel-day")
+public ResponseEntity<String> cancelLeaveRequestsByHrOfficerAndDate(
+        @RequestParam UUID hrOfficerId,
+        @RequestParam LocalDate date) {
 
+    String result =
+            leaveRequestService.cancelLeaveRequestsByHrOfficerAndDate(
+                    hrOfficerId, date);
+
+    return ResponseEntity.ok(result);
+}
     @GetMapping("/{id}")
     public ResponseEntity<?> getLeaveRequestById(@PathVariable UUID id) {
 
