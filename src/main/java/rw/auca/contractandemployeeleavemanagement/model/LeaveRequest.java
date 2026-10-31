@@ -24,7 +24,7 @@ public class LeaveRequest {
     private LocalDate startDate;
 
     @Enumerated(EnumType.STRING)
-    private LeaveRequest status;
+    private LeaveStatus status;
 
     private String leaveType;
 
@@ -58,12 +58,12 @@ public class LeaveRequest {
         this.startDate = startDate;
     }
 
-    public LeaveRequest getStatus() {
+    public LeaveStatus getStatus() {
         return status;
     }
 
-    public void setStatus(LeaveRequest status) {
-        this.status = status;
+    public void setStatus(LeaveStatus submitted) {
+        this.status = submitted;
     }
 
     public String getLeaveType() {
