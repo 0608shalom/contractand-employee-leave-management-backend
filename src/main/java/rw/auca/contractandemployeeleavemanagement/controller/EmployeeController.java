@@ -10,15 +10,21 @@ import org.springframework.web.bind.annotation.*;
 
 import rw.auca.contractandemployeeleavemanagement.model.Employee;
 import rw.auca.contractandemployeeleavemanagement.service.EmployeeService;
+import rw.auca.contractandemployeeleavemanagement.service.HrOfficerService;
 
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
-    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    private final EmployeeService employeeService;
+private final HrOfficerService hrOfficerService;
+
+public EmployeeController(
+        EmployeeService employeeService,
+        HrOfficerService hrOfficerService) {
+    this.employeeService = employeeService;
+    this.hrOfficerService = hrOfficerService;
+}
 
     @PostMapping("/save")
     public ResponseEntity<String> saveEmployee(
@@ -78,4 +84,16 @@ return ResponseEntity.status(HttpStatus.NOT_FOUND)
         @RequestParam String lastName){
             return employeeService.getEmployeesByLastName(lastName);
         }
+        @GetMapping("/of-hr-officer/{hrOfficerId}")
+public ResponseEntity<?> getEmployeesByHrOfficer(
+        @PathVariable UUID hrOfficerId) {
+
+    if (hrOfficerService.getHrOfficerById(hrOfficerId).isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("The hr officer with that id does not exist");
+    }
+
+    return ResponseEntity.ok(
+            employeeService.getEmployeesByHrOfficer(hrOfficerId));
+}
 }

@@ -33,6 +33,12 @@ public class HrOfficerController {
 public List<HrOfficer> getAllHrOfficers() {
     return hrOfficerService.getAllHrOfficers();
 }
+@GetMapping("/by-contract-type")
+public List<HrOfficer> getHrOfficersByContractType(
+        @RequestParam("name") String name) {
+
+    return hrOfficerService.getHrOfficersByContractType(name);
+}
      @GetMapping("/{id}")
     public ResponseEntity<?> getHrOfficerById(@PathVariable UUID id) {
 

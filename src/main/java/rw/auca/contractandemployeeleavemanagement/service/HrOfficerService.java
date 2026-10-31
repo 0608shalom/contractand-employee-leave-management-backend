@@ -19,7 +19,11 @@ public class HrOfficerService {
     }
     public List<HrOfficer> getAllHrOfficers(){
         return hrOfficerRepository.findAll();
+    }
         
+    public List<HrOfficer> getHrOfficersByContractType(String name) {
+        return hrOfficerRepository.findHrOfficersByContractType(name);
+    
     }
     public void saveHrOfficer(HrOfficer hrOfficer) {
     hrOfficerRepository.save(hrOfficer);

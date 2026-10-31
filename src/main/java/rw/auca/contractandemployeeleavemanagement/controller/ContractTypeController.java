@@ -42,6 +42,10 @@ public class ContractTypeController {
         public List<ContractType> getAllContractTypes(){
             return contractTypeService.getAllContractTypes();
         }
+        @GetMapping("/unused")
+public List<ContractType> getUnusedContractTypes() {
+    return contractTypeService.getUnusedContractTypes();
+}
         @GetMapping("/{id}")
 public ResponseEntity<?> getContractTypeById(@PathVariable UUID id) {
 

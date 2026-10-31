@@ -33,6 +33,10 @@ public class DepartmentController {
     public List<Department> getAllDepartments() {
         return departmentService.getAllDepartments();
     }
+    @GetMapping("/free")
+public List<Department> getFreeDepartments() {
+    return departmentService.getFreeDepartments();
+}
      @GetMapping("/{id}")
     public ResponseEntity<?> getDepartmentById(@PathVariable UUID id) {
 

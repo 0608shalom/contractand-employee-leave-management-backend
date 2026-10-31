@@ -25,6 +25,9 @@ public class ContractTypeService {
     public List<ContractType>getAllContractTypes(){
         return contractTypeRepository.findAll();
     }
+    public List<ContractType> getUnusedContractTypes() {
+    return contractTypeRepository.findUnusedContractTypes();
+}
 
     public Optional<ContractType>getContractTypeById(UUID id){
         return contractTypeRepository.findById(id);
