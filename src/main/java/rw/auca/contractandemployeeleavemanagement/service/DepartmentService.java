@@ -24,6 +24,9 @@ public class DepartmentService {
     public List<Department> getFreeDepartments() {
     return departmentRepository.findFreeDepartments();
 }
+    public Optional<Department> getDepartmentDeptNumber(int deptNumber) {
+        return departmentRepository.findByDeptNumber(deptNumber);
+    }
     public Optional<Department>getDepartmentById(UUID id){
         return departmentRepository.findById(id);
     }

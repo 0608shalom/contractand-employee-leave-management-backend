@@ -67,6 +67,42 @@ public List<HrOfficer> getHrOfficersByContractType(
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("The HR officer with that id does not exist");
     }
+    @PutMapping("/{hrOfficerId}/contract-types/{contractTypeId}")
+public ResponseEntity<String> addContractType(
+        @PathVariable UUID hrOfficerId,
+        @PathVariable UUID contractTypeId) {
+
+    String result = hrOfficerService.addContractType(
+            hrOfficerId, contractTypeId);
+
+    if (result.equals("Contract type added to the hr officer")) {
+        return ResponseEntity.ok(result);
+    }
+
+    if (result.equals("The hr officer already has that contract type")) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+    }
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+}
+@PatchMapping("/{hrOfficerId}/department")
+public ResponseEntity<String> moveHrOfficerToDepartment(
+        @PathVariable UUID hrOfficerId,
+        @RequestParam("deptNumber") int deptNumber) {
+
+    String result = hrOfficerService.moveHrOfficerToDepartment(
+            hrOfficerId, deptNumber);
+
+    if (result.equals("Department changed successfully")) {
+        return ResponseEntity.ok(result);
+    }
+
+    if (result.equals("That department is taken by another hr officer")) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+    }
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+}
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteHrOfficer(@PathVariable UUID id) {
 

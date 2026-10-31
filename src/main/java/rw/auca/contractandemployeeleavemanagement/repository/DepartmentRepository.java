@@ -1,6 +1,7 @@
 package rw.auca.contractandemployeeleavemanagement.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,6 @@ public interface DepartmentRepository extends JpaRepository<Department, UUID>{
        "(SELECT h FROM HrOfficer h WHERE h.department = d) " +
        "ORDER BY d.deptNumber ASC")
 List<Department> findFreeDepartments();
+
+Optional<Department> findByDeptNumber(int deptNumber);
 }

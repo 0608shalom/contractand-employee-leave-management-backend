@@ -22,18 +22,23 @@ public class LeaveRequestController {
         this.leaveRequestService = leaveRequestService;
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<String> saveLeaveRequest(
-            @RequestBody LeaveRequest leaveRequest) {
+@PostMapping("/save")
+public ResponseEntity<String> saveLeaveRequest(
+        @RequestBody LeaveRequest leaveRequest) {
 
-        String result = leaveRequestService.saveLeaveRequest(leaveRequest);
+    String result = leaveRequestService.saveLeaveRequest(leaveRequest);
 
-        if (result.equals("Leave request saved successfully")) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(result);
-        }
-
-        return ResponseEntity.badRequest().body(result);
+    if (result.equals("Leave request saved successfully")) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+
+    if (result.equals(
+            "HR officer already processes a leave request starting on that date")) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+    }
+
+    return ResponseEntity.badRequest().body(result);
+}
 @GetMapping("/all")
     public List<LeaveRequest> getAllLeaveRequests() {
         return leaveRequestService.getAllLeaveRequests();
@@ -80,24 +85,24 @@ public List<LeaveRequest> getLeaveRequestsBetweenDates(
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("The leave request with that id does not exist");
     }
-     @PutMapping("/update-status/{id}")
-    public ResponseEntity<String> updateLeaveRequestStatus(
-            @PathVariable UUID id,
-            @RequestBody LeaveStatus newStatus) {
+     @PatchMapping("/{id}/status")
+public ResponseEntity<String> updateLeaveRequestStatus(
+        @PathVariable UUID id,
+        @RequestParam("status") LeaveStatus status) {
 
-        String result =
-                leaveRequestService.updateLeaveRequestStatus(id, newStatus);
+    String result =
+            leaveRequestService.updateLeaveRequestStatus(id, status);
 
-        if (result.equals("Leave request status updated successfully")) {
-            return ResponseEntity.ok(result);
-        }
-
-        if (result.equals("The leave request with that id does not exist")) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
-        }
-
-        return ResponseEntity.badRequest().body(result);
+    if (result.equals("Leave request status updated successfully")) {
+        return ResponseEntity.ok(result);
     }
+
+    if (result.equals("The leave request with that id does not exist")) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+    }
+
+    return ResponseEntity.badRequest().body(result);
+}
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteLeaveRequest(@PathVariable UUID id) {
 
