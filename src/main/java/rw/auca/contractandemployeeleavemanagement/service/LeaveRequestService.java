@@ -9,15 +9,21 @@ import org.springframework.stereotype.Service;
 
 import rw.auca.contractandemployeeleavemanagement.model.LeaveRequest;
 import rw.auca.contractandemployeeleavemanagement.model.LeaveStatus;
+import rw.auca.contractandemployeeleavemanagement.repository.LeaveDeductionRepository;
 import rw.auca.contractandemployeeleavemanagement.repository.LeaveRequestRepository;
 
 @Service 
 public class LeaveRequestService {
-    private final LeaveRequestRepository leaveRequestRepository;
+ private final LeaveRequestRepository leaveRequestRepository;
+private final LeaveDeductionRepository leaveDeductionRepository;
 
-    public LeaveRequestService(LeaveRequestRepository leaveRequestRepository){
-        this.leaveRequestRepository = leaveRequestRepository;
-    }
+public LeaveRequestService(
+        LeaveRequestRepository leaveRequestRepository,
+        LeaveDeductionRepository leaveDeductionRepository) {
+
+    this.leaveRequestRepository = leaveRequestRepository;
+    this.leaveDeductionRepository = leaveDeductionRepository;
+}
 
     public String saveLeaveRequest(LeaveRequest leaveRequest){
 
@@ -116,13 +122,26 @@ if (alreadyExists) {
     }
 
 
-    public boolean deleteLeaveRequest(UUID id) {
+    public String deleteLeaveRequest(UUID id) {
 
-        if (leaveRequestRepository.existsById(id)) {
-            leaveRequestRepository.deleteById(id);
-            return true;
-        }
+    Optional<LeaveRequest> optionalRequest =
+            leaveRequestRepository.findById(id);
 
-        return false;
+    if (optionalRequest.isEmpty()) {
+        return "The leave request with that id does not exist";
+    }
+
+    LeaveRequest leaveRequest = optionalRequest.get();
+
+    boolean hasDeductions =
+            leaveDeductionRepository.existsByLeaveRequest(leaveRequest);
+
+    if (hasDeductions) {
+        return "That leave request has leave deductions, delete them first";
+    }
+
+    leaveRequestRepository.delete(leaveRequest);
+
+    return "Leave request deleted successfully";
     }
 }

@@ -104,13 +104,23 @@ public ResponseEntity<String> updateLeaveRequestStatus(
     return ResponseEntity.badRequest().body(result);
 }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteLeaveRequest(@PathVariable UUID id) {
+public ResponseEntity<String> deleteLeaveRequest(@PathVariable UUID id) {
 
-        if (leaveRequestService.deleteLeaveRequest(id)) {
-            return ResponseEntity.ok("Leave request deleted successfully");
-        }
+    String result = leaveRequestService.deleteLeaveRequest(id);
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("The leave request with that id does not exist");
+    if (result.equals("Leave request deleted successfully")) {
+        return ResponseEntity.ok(result);
     }
+
+    if (result.equals("The leave request with that id does not exist")) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+    }
+
+    if (result.equals(
+            "That leave request has leave deductions, delete them first")) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+    }
+
+    return ResponseEntity.internalServerError().body(result);
+}
 }
