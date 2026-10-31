@@ -49,5 +49,8 @@ public class EmployeeService {
         }
         return false;
     }
+    public List<Employee> getEmployeesByLastName(String lastname){
+        return employeeRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastname);
+    }
 
 }

@@ -47,6 +47,14 @@ if (alreadyExists) {
     public List<LeaveRequest> getAllLeaveRequests() {
         return leaveRequestRepository.findAll();
     }
+    public List<LeaveRequest> getLeaveRequestsByStatus(LeaveStatus status){
+        return leaveRequestRepository.findByStatusOrderByStartDateAsc(status);
+    }
+    public List<LeaveRequest> getLeaveRequestsBetweenDates(
+        LocalDate start, LocalDate end) {
+            return leaveRequestRepository
+            .findByStartDateBetweenOrderByStartDateAsc(start, end);
+        }
 
     
     public Optional<LeaveRequest> getLeaveRequestById(UUID id) {

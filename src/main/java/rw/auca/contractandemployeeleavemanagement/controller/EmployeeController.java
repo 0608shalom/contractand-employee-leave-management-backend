@@ -73,4 +73,9 @@ public class EmployeeController {
 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("The employee with that id does not exist");
     }
+    @GetMapping("/by-last-name")
+    public List<Employee> getEmployeesByLastName(
+        @RequestParam String lastName){
+            return employeeService.getEmployeesByLastName(lastName);
+        }
 }

@@ -1,5 +1,6 @@
 package rw.auca.contractandemployeeleavemanagement.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,6 +38,19 @@ public class LeaveRequestController {
     public List<LeaveRequest> getAllLeaveRequests() {
         return leaveRequestService.getAllLeaveRequests();
     }
+    @GetMapping("/by-status")
+public List<LeaveRequest> getLeaveRequestsByStatus(
+        @RequestParam("status") LeaveStatus status) {
+
+    return leaveRequestService.getLeaveRequestsByStatus(status);
+}
+@GetMapping("/between")
+public List<LeaveRequest> getLeaveRequestsBetweenDates(
+        @RequestParam("start") LocalDate start,
+        @RequestParam("end") LocalDate end) {
+
+    return leaveRequestService.getLeaveRequestsBetweenDates(start, end);
+}
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getLeaveRequestById(@PathVariable UUID id) {
