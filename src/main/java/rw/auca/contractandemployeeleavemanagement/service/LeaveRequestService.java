@@ -11,6 +11,7 @@ import rw.auca.contractandemployeeleavemanagement.model.LeaveRequest;
 import rw.auca.contractandemployeeleavemanagement.model.LeaveStatus;
 import rw.auca.contractandemployeeleavemanagement.repository.LeaveDeductionRepository;
 import rw.auca.contractandemployeeleavemanagement.repository.LeaveRequestRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service 
 public class LeaveRequestService {
@@ -144,20 +145,18 @@ if (alreadyExists) {
 
     return "Leave request deleted successfully";
     }
-    public List<Object[]> getLeaveRequestCountsByStatus() {
-    return leaveRequestRepository.countLeaveRequestsByStatus();
-}
-    public String cancelLeaveRequestsByHrOfficerAndDate(
-        UUID hrOfficerId, LocalDate date){
-
-            int count = leaveRequestRepository
-            .cancelLeaveRequestsByHrOfficerAndDate(
-                hrOfficerId,
-            date,LeaveStatus.REJECTED,
-        LeaveStatus.CLOSED
         
-    );
+    public List<Object[]> getLeaveRequestCountsByStatus() {
+        return leaveRequestRepository.countLeaveRequestsByStatus();
+    }
 
-    return count + "leave requests cancelled";
+    @Transactional
+    public String cancelLeaveRequestsByHrOfficerAndDate(
+            UUID hrOfficerId, LocalDate date) {
+
+        int count = leaveRequestRepository.cancelLeaveRequestsByHrOfficerAndDate(
+                hrOfficerId, date, LeaveStatus.REJECTED, LeaveStatus.CLOSED);
+
+        return count + " leave requests cancelled";
     }
 }

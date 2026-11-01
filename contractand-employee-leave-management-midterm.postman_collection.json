@@ -1,0 +1,468 @@
+{
+  "info": {
+    "_postman_id": "95133c9e-b305-4f9f-bf21-d11fd6d7d7f2",
+    "name": "Contract and Employee Leave Management – Midterm Copy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58471915"
+  },
+  "item": [
+    {
+      "name": "Part A - Domain Model and CRUD",
+      "item": [
+        {
+          "name": "A2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part B - Derived Queries",
+      "item": [
+        {
+          "name": "B1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/employees/by-last-name?lastName=mugisha",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "employees",
+                "by-last-name"
+              ],
+              "query": [
+                {
+                  "key": "lastName",
+                  "value": "mugisha"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/by-status?status=SUBMITTED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "by-status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SUBMITTED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/between?start=2026-10-01&end=2026-10-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "between"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "end",
+                  "value": "2026-10-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part C - JPQL Queries",
+      "item": [
+        {
+          "name": "C1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/hr-officers/by-contract-type?name=Permanent%20Contract",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "hr-officers",
+                "by-contract-type"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Permanent%20Contract"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "C2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/departments/free",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "departments",
+                "free"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "C3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/contract-types/unused",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "contract-types",
+                "unused"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "C4",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/employees/of-hr-officer/53cbbc43-a39d-4e0b-890b-e84e4b529442",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "employees",
+                "of-hr-officer",
+                "53cbbc43-a39d-4e0b-890b-e84e4b529442"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part D - Business Rules",
+      "item": [
+        {
+          "name": "D1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"startDate\": \"2026-11-12\",\r\n    \"leaveType\": \"Sick Leave\",\r\n    \"days\": 3,\r\n    \"employee\": {\r\n        \"id\": \"684af236-5cba-44c6-9204-c868410fa850\"\r\n    },\r\n    \"hrOfficer\": {\r\n        \"id\": \"16cfaa31-5d5c-4239-9c25-7e68c987dd6c\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D2",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/946acc6b-5b28-4305-a362-f2fac0062dbe/status?status=CLOSED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "946acc6b-5b28-4305-a362-f2fac0062dbe",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "CLOSED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D3",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/hr-officers/16cfaa31-5d5c-4239-9c25-7e68c987dd6c/contract-types/a4ce5c26-0bfd-4589-903c-d819b1f491d5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "hr-officers",
+                "16cfaa31-5d5c-4239-9c25-7e68c987dd6c",
+                "contract-types",
+                "a4ce5c26-0bfd-4589-903c-d819b1f491d5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D4",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/hr-officers/53cbbc43-a39d-4e0b-890b-e84e4b529442/department?deptNumber=40",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "hr-officers",
+                "53cbbc43-a39d-4e0b-890b-e84e4b529442",
+                "department"
+              ],
+              "query": [
+                {
+                  "key": "deptNumber",
+                  "value": "40"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part E - Leave Deductions",
+      "item": [
+        {
+          "name": "E1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"balanceType\": \"ANNUAL\",\r\n  \"remarks\": \"Annual leave deduction\",\r\n  \"daysDeducted\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/leave-deductions/save?leaveRequestId=c05be70b-39fe-4d33-b342-d1c0ab83214f",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-deductions",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "leaveRequestId",
+                  "value": "c05be70b-39fe-4d33-b342-d1c0ab83214f"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-deductions/employee/EMP001",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-deductions",
+                "employee",
+                "EMP001"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part F - Reports and Bulk Updates",
+      "item": [
+        {
+          "name": "F1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/stats/by-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "stats",
+                "by-status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "F2",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/leave-requests/cancel-day?hrOfficerId=53cbbc43-a39d-4e0b-890b-e84e4b529442&date=2026-10-20",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "leave-requests",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "hrOfficerId",
+                  "value": "53cbbc43-a39d-4e0b-890b-e84e4b529442"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-10-20"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
